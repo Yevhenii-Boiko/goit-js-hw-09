@@ -25,14 +25,20 @@ const options = {
   },
 };
 
+const timerId = null;
+
 const timer = {
   start() {
     const startTime = new Date(refs.input.value).getTime();
-    setInterval(() => {
+    const timerId = setInterval(() => {
       const currentTime = Date.now();
       const deltaTime = startTime - currentTime;
       const time = convertMs(deltaTime);
       updateTimerFace(time);
+      if (deltaTime < 1000) {
+        clearInterval(timerId);
+        // console.log('timer stopped!');
+      }
     }, 1000);
   },
 };
